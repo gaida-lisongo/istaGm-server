@@ -26,6 +26,30 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await Promotion.getPromotionById(id);
+        console.log("Result : ", result);
+        if (!result.success) {
+            return res.status(result.code || 500).json(result);
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Promotion récupérée avec succès',
+            data: result.data,
+        });
+    } catch (error) {
+        console.error('Erreur lors de la récupération de la promotion :', error);
+        res.status(500).json({ 
+            success: false,
+            message: 'Erreur interne du serveur',
+            error: error.message
+        });
+    }
+})
+
 router.get('/stats', async (req, res) => {
     try {
         const { id } = req.params;

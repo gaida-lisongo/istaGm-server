@@ -29,9 +29,9 @@ router.get('/', async (req, res) => {
 router.get('/annee/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        console.log('ID:', id); // Log the ID to check its value
+        
         const result = await Cotes.getInsertionsByAnnee(parseInt(id));
-        console.log('Result:', result); // Log the result to check its structure
+        
         // if (!result.success) {
         //     return res.status(result.code || 500).json(result);
         // }
